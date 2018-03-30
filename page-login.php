@@ -1,7 +1,11 @@
 <?php
   
   include 'lib/User.php';
+  Session::checkLogin();
   $user = new User();
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signin'])){
+    $usrLogin = $user->userLogin($_POST);
+  }
 
 ?>
 <!DOCTYPE html>
@@ -14,6 +18,14 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="js/plugins/sweetalert.min.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <?php
+      if (isset($usrLogin)) {
+        echo $usrLogin;
+      }
+      unset($usrlogin);
+    ?>
     <title>Login - Learn Quest Academy</title>
   </head>
   <body>
@@ -25,15 +37,15 @@
         <h1>Learn Quest Academy</h1>
       </div>
       <div class="login-box">
-        <form class="login-form" action="" method="post">
+        <form class="login-form" action="" method="POST">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>SIGN IN</h3>
           <div class="form-group">
             <label class="control-label">USERNAME</label>
-            <input class="form-control" type="text" placeholder="Email" name="Username" required autofocus>
+            <input class="form-control" type="text" placeholder="Email" name="email" required autofocus>
           </div>
           <div class="form-group">
             <label class="control-label">PASSWORD</label>
-            <input class="form-control" type="password" placeholder="Password" name="Password" required>
+            <input class="form-control" type="password" placeholder="Password" name="password" required>
           </div>
           <!-- <div class="form-group">
             <div class="utility">
@@ -44,7 +56,7 @@
             <button class="btn btn-primary btn-block" type="submit" name="signin"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
         </form>
-        <form class="forget-form" action="" method="post">
+        <form class="forget-form" action="" method="POST">
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
           <div class="form-group">
             <label class="control-label">EMAIL</label>
@@ -60,6 +72,7 @@
       </div>
     </section>
     <!-- Essential javascripts for application to work-->
+    <script type="text/javascript" src="js/plugins/sweetalert.min.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

@@ -5,7 +5,7 @@
 		private $hostdb = "localhost";
 		private $userdb = "root";
 		private $passdb = "";
-		private $namedb = "login";
+		private $namedb = "lq";
 		public $pdo;
 
 		public function __construct()
