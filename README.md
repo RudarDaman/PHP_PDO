@@ -1,4 +1,4 @@
-# PHP_PDO
+# Mock Test Series for Learn Quest Academy using PHP, Angular 
 
 PDO Libraries
 1. Database.php
