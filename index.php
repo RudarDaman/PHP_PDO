@@ -121,62 +121,40 @@
         </ul>
       </div>
       <div class="row">
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
             <div class="info">
-              <h4>CAT Tests</h4>
+              <h4>Users</h4>
               <p><b>5</b></p>
             </div>
-            <i class="icon fa fa-angle-double-right "></i>
           </div>
         </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
             <div class="info">
-              <h4>XAT Tests</h4>
+              <h4>Likes</h4>
               <p><b>25</b></p>
             </div>
-            <i class="icon fa fa-angle-double-right"></i>
           </div>
         </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
             <div class="info">
-              <h4>IIFT Tests</h4>
+              <h4>Uploades</h4>
               <p><b>10</b></p>
             </div>
-            <i class="icon fa fa-angle-double-right"></i>
           </div>
         </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
+        <div class="col-md-6 col-lg-3">
+          <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
             <div class="info">
-              <h4>CAT Tests</h4>
-              <p><b>5</b></p>
+              <h4>Stars</h4>
+              <p><b>500</b></p>
             </div>
-            <i class="icon fa fa-angle-double-right"></i>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
-            <div class="info">
-              <h4>XAT Tests</h4>
-              <p><b>25</b></p>
-            </div>
-            <i class="icon fa fa-angle-double-right "></i>
-          </div>
-        </div>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small info coloured-icon">
-            <div class="info">
-              <h4>IIFT Tests</h4>
-              <p><b>10</b></p>
-            </div>
-            <i class="icon fa fa-angle-double-right "></i>
           </div>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-md-6">
           <div class="tile">
             <h3 class="tile-title">Monthly Sales</h3>
@@ -193,7 +171,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
       
     </main>
     <!-- Essential javascripts for application to work-->
