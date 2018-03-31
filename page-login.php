@@ -1,6 +1,7 @@
 <?php
   
   include 'lib/User.php';
+  Session::init();
   Session::checkLogin();
   $user = new User();
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signin'])){
