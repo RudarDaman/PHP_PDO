@@ -254,7 +254,7 @@
                           <td><?php echo $result['Type']; ?></td>
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editQue@<?php echo $TestNo."-".$result['queNo']; ?>"><i class="fa fa-lg fa-edit"></i></button>
+                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editQue<?php echo $TestNo."-".$result['queNo']; ?>"><i class="fa fa-lg fa-edit"></i></button>
                                 <form class="test-form" action="" method="POST">
                                   <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden >
                                   <input class="form-control" type="text" name="queNo" value="<?php echo $result['queNo']; ?>" hidden >
@@ -262,7 +262,7 @@
                                 </form>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="editQue@<?php echo $TestNo."-".$result['queNo']; ?>" role="dialog">
+                            <div class="modal fade" id="editQue<?php echo $TestNo."-".$result['queNo']; ?>" role="dialog">
                               <div class="modal-dialog" role="document">
                                 <form class="test-form" action="" method="POST">
                                   <div class="modal-content">
@@ -273,17 +273,29 @@
                                     <div class="modal-body">
                                       <div class="form-group">
                                         <label class="control-label">Question Name</label>
-                                        <input class="form-control" type="text" name="QuestionName" value="<?php echo $result['que']; ?>" required>
+                                        <input class="form-control" type="text" name="Question" value="<?php echo $result['que']; ?>" required>
                                         <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden >
                                         <input class="form-control" type="text" name="QueNo" value="<?php echo $QueNo; ?>" hidden >
                                       </div>
                                       <div class="form-group">
-                                        <label class="control-label">Question Duration</label>
-                                        <input class="form-control" type="text" name="QuestionDuration" value="<?php echo $result['Duration']; ?>" required>
+                                        <label class="control-label">Option A</label>
+                                        <input class="form-control" type="text" name="aAnswer" value="<?php echo $result['aAnswer']; ?>" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label">Option B</label>
+                                        <input class="form-control" type="text" name="bAnswer" value="<?php echo $result['bAnswer']; ?>" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label">Option C</label>
+                                        <input class="form-control" type="text" name="cAnswer" value="<?php echo $result['cAnswer']; ?>" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label">Option D</label>
+                                        <input class="form-control" type="text" name="dAnswer" value="<?php echo $result['dAnswer']; ?>" required>
                                       </div>
                                     </div>
                                     <div class="modal-footer">
-                                      <button class="btn btn-primary" type="submit" name="editQuestion"><i class="fa fa-sign-in fa-lg fa-fw"></i>Update</button>
+                                      <button class="btn btn-primary" type="submit" name="editQue"><i class="fa fa-sign-in fa-lg fa-fw"></i>Update</button>
                                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
                                     </div>
                                   </div>

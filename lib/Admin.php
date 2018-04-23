@@ -242,6 +242,23 @@
 			return $result;
 		}
 
+		public function editQue($data)
+		{		
+			$queNo = $data['queNo'];
+			$TestNo = $data['TestNo'];
+			$que = $data['que'];
+			$query = "DELETE FROM `que` WHERE que.TestNo = '$TestNo' and que.queNo = '$queNo'";
+			$result1 = $this->db->select($query);
+			$query = "DELETE FROM `ans` WHERE ans.TestNo = '$TestNo' and ans.queNo = '$queNo'";
+			$result2 = $this->db->select($query);
+			if ($result1 && $result2) {
+				return "<script type='text/javascript'>setTimeout(function () { swal('Successful...','Question Deleted Successfully.', 'success');}, 500);</script>";
+			}
+			else{
+				return "<script type='text/javascript'>setTimeout(function () { swal('Error... ', 'Question Not Deleted. ', 'warning');}, 500);</script>";
+			}
+		}
+
 		public function delQue($data)
 		{		
 			$queNo = $data['queNo'];
