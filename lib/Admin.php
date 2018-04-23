@@ -218,40 +218,43 @@
 			$cAnswer = $data['cAnswer'];
 			$dAnswer = $data['dAnswer'];
 			$answers = array($aAnswer,$bAnswer,$cAnswer,$dAnswer);
-			$correctAnswer = (int)$data['correctAnswer']-1;
+			$correctAnswer = $answers[$data['correctAnswer']-1];
 			$QueCategory = $data['QueCategory'];
-			$query = "INSERT INTO `que`(`id`, `TestNo`, `quesNo`, `que`, `Type`) VALUES ('','$TestId','$QuestionId','$Question','$QueCategory')";
-			$result1 = $this->db->update($query);
-			$QuestionId = $data['QuestionId'];
-			$query = "INSERT INTO `ans`(`id`, `quesNo`, `correct`, `ans`) VALUES ('','$QuestionId','0','$aAnswer')";
-			$result2 = $this->db->update($query);
-			$query = "INSERT INTO `ans`(`id`, `quesNo`, `correct`, `ans`) VALUES ('','$QuestionId','0','$bAnswer')";
-			$result3 = $this->db->update($query);
-			$query = "INSERT INTO `ans`(`id`, `quesNo`, `correct`, `ans`) VALUES ('','$QuestionId','0','$cAnswer')";
-			$result4 = $this->db->update($query);
-			$query = "INSERT INTO `ans`(`id`, `quesNo`, `correct`, `ans`) VALUES ('','$QuestionId','0','$dAnswer')";
-			$result5 = $this->db->update($query);
-			$query = "UPDATE `ans` SET `correct`='1' WHERE `quesNo`='$QuestionId' and `ans`='$answers[$correctAnswer]'";
-			$result6 = $this->db->update($query);
 
-			if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
-				return "<script type='text/javascript'>setTimeout(function () { swal('Successful...','Question Added Successfu;;y', 'success');}, 500);</script>";
+			$query = "INSERT INTO `que`(`queNo`, `TestNo`, `que`, `Type`) VALUES ('','$TestId','$Question','$QueCategory')";
+			$result1 = $this->db->update($query);
+
+			$query = "INSERT INTO `ans`(`queNo`, `correct`, `aAnswer`, `bAnswer`, `cAnswer`, `dAnswer`) VALUES ('','$correctAnswer','$aAnswer','$bAnswer','$cAnswer','$dAnswer')";
+			$result2 = $this->db->update($query);
+
+			if ($result1 && $result2) {
+				return "<script type='text/javascript'>setTimeout(function () { swal('Successful...','Question Added Successfully.', 'success');}, 500);</script>";
 			}
 			else{
-				return "<script type='text/javascript'>setTimeout(function () { swal('Error... ', 'Question Not Added  ', 'warning');}, 500);</script>";
+				return "<script type='text/javascript'>setTimeout(function () { swal('Error... ', 'Question Not Added.', 'warning');}, 500);</script>";
 			}
 		}
 
-
 		public function getAllTestQues($TestNo)
 		{		
-			$query = "select * from `que` WHERE TestNo = '$TestNo'";
+			$query = "SELECT que.queNo, que.que, que.Type, ans.correct, ans.aAnswer, ans.bAnswer, ans.cAnswer, ans.dAnswer FROM `que` INNER JOIN `ans` ON que.queNo = ans.queNo WHERE que.TestNo = '$TestNo'";
 			$result = $this->db->select($query);
-			if ($result) {
-				return "<script type='text/javascript'>setTimeout(function () { swal('Successful...','Test Type Changed To Free ', 'success');}, 500);</script>";
+			return $result;
+		}
+
+		public function delQue($data)
+		{		
+			$queNo = $data['queNo'];
+			$TestNo = $data['TestNo'];
+			$query = "DELETE FROM `que` WHERE que.TestNo = '$TestNo' and que.queNo = '$queNo'";
+			$result1 = $this->db->select($query);
+			$query = "DELETE FROM `ans` WHERE ans.TestNo = '$TestNo' and ans.queNo = '$queNo'";
+			$result2 = $this->db->select($query);
+			if ($result1 && $result2) {
+				return "<script type='text/javascript'>setTimeout(function () { swal('Successful...','Question Deleted Successfully.', 'success');}, 500);</script>";
 			}
 			else{
-				return "<script type='text/javascript'>setTimeout(function () { swal('Error... ', ' Test Type Not Changed ', 'warning');}, 500);</script>";
+				return "<script type='text/javascript'>setTimeout(function () { swal('Error... ', 'Question Not Deleted. ', 'warning');}, 500);</script>";
 			}
 		}
 

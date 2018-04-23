@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 05:18 AM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.1.12
+-- Generation Time: Apr 23, 2018 at 11:36 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,14 +29,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `ans` (
-  `id` int(11) NOT NULL,
-  `quesNo` int(11) NOT NULL,
-  `correct` int(11) NOT NULL,
+  `queNo` int(10) NOT NULL,
+  `TestNo` int(10) NOT NULL,
+  `correct` text NOT NULL,
   `aAnswer` text NOT NULL,
   `bAnswer` text NOT NULL,
   `cAnswer` text NOT NULL,
   `dAnswer` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ans`
+--
+
+INSERT INTO `ans` (`queNo`, `TestNo`, `correct`, `aAnswer`, `bAnswer`, `cAnswer`, `dAnswer`) VALUES
+(1, 1, 'B', 'A', 'B', 'C', 'D'),
+(2, 1, 'B', 'A', 'B', 'C', 'D');
 
 -- --------------------------------------------------------
 
@@ -1852,12 +1860,19 @@ INSERT INTO `otp` (`otp`, `validate`) VALUES
 --
 
 CREATE TABLE `que` (
-  `id` int(11) NOT NULL,
+  `queNo` int(10) NOT NULL,
   `TestNo` int(100) NOT NULL,
-  `quesNo` int(11) NOT NULL,
   `que` text NOT NULL,
   `Type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `que`
+--
+
+INSERT INTO `que` (`queNo`, `TestNo`, `que`, `Type`) VALUES
+(1, 1, 'What is PHP?', 'DI-LR'),
+(2, 1, 'What is PHP?', 'DI-LR');
 
 -- --------------------------------------------------------
 
@@ -1879,7 +1894,7 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`TestNo`, `Name`, `Duration`, `Type`, `Created`, `status`) VALUES
-(1, 'LQ MOCK-1@CAT 2017-18', 3, '0', '2018-04-22 17:51:37', 0);
+(1, 'LQ MOCK-1@CAT 2017-18', 3, '0', '2018-04-23 06:02:32', 0);
 
 -- --------------------------------------------------------
 
@@ -1900,7 +1915,7 @@ CREATE TABLE `test_category` (
 
 INSERT INTO `test_category` (`Id`, `Name`, `Timestamp`, `status`) VALUES
 (1, 'CAT 2017-18', '2018-04-22 10:19:30', 0),
-(2, 'Rudar', '2018-04-22 09:41:34', 0);
+(2, 'IIFT 2017-18', '2018-04-23 04:25:34', 0);
 
 --
 -- Indexes for dumped tables
@@ -1910,7 +1925,7 @@ INSERT INTO `test_category` (`Id`, `Name`, `Timestamp`, `status`) VALUES
 -- Indexes for table `ans`
 --
 ALTER TABLE `ans`
-  ADD UNIQUE KEY `quesNo` (`quesNo`);
+  ADD PRIMARY KEY (`queNo`);
 
 --
 -- Indexes for table `blog`
@@ -1941,7 +1956,7 @@ ALTER TABLE `otp`
 -- Indexes for table `que`
 --
 ALTER TABLE `que`
-  ADD UNIQUE KEY `quesNo` (`quesNo`);
+  ADD PRIMARY KEY (`queNo`);
 
 --
 -- Indexes for table `test`
@@ -1962,6 +1977,12 @@ ALTER TABLE `test_category`
 --
 
 --
+-- AUTO_INCREMENT for table `ans`
+--
+ALTER TABLE `ans`
+  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `blog`
 --
 ALTER TABLE `blog`
@@ -1974,16 +1995,22 @@ ALTER TABLE `login`
   MODIFY `SNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
+-- AUTO_INCREMENT for table `que`
+--
+ALTER TABLE `que`
+  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
-  MODIFY `TestNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `TestNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `test_category`
 --
 ALTER TABLE `test_category`
-  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

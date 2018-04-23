@@ -245,7 +245,7 @@
                               <?php if($result['Type'] == '1') { ?>
                                 <form class="test-form" action="" method="POST">
                                   <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
-                                  <button class="btn btn-primary" type="submit" name="freeTest">PREMIUM</button>
+                                  <button class="btn btn-primary" type="submit" name="freeTest">PRIME</button>
                                 </form>
                               <?php } else { ?>
                                 <form class="test-form" action="" method="POST">
@@ -258,14 +258,14 @@
                           <td><?php echo $result['Created']; ?></td>
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editTest<?php echo $result['TestNo']; ?>"><i class="fa fa-lg fa-edit"></i></button>
+                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editTest<?php echo $result['TestNo']; ?>"><i class="fa fa-edit"></i></button>
                                 <?php if($result['status'] == '1') { ?>
-                                  <form class="test-form" action="" method="POST">
+                                  <form class="test-form" action="" method="POST" style="margin-bottom: 0px;">
                                     <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
                                     <button class="btn btn-primary" type="submit" name="disTest"><i class="fa fa-lg fa-check"></i></button>
                                   </form>
                                 <?php } else { ?>
-                                  <form class="test-form" action="" method="POST">
+                                  <form class="test-form" action="" method="POST" style="margin-bottom: 0px;">
                                     <form class="test-form" action="" method="POST">
                                     <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
                                     <button class="btn btn-primary" type="submit" name="enaTest"><i class="fa fa-lg fa-remove"></i></button>

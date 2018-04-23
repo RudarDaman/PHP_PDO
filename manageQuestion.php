@@ -29,6 +29,10 @@
     $editQue = $admin->editQue($_POST);
   }
 
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delQue'])){
+    $delQue = $admin->delQue($_POST);
+  }
+
 ?>
 
 
@@ -57,6 +61,9 @@
       }
       if (isset($editQue)) {
         echo $editQue;
+      }
+      if (isset($delQue)) {
+        echo $delQue;
       }
     ?>
   </head>
@@ -233,69 +240,50 @@
                   if ($testQue) {
                       while($result = $testQue->fetch_assoc()){
                         $data = explode("@", $result['Name']);*/
-                  $testsData = $admin->getAllTests();
-                  if ($testsData) {
-                      while($result = $testsData->fetch_assoc()){
-                        $data = explode("@", $result['Name']);
+
+                  $testQues = $admin->getAllTestQues($TestNo);
+                  if ($testQues) {
+                      $count = 0;
+                      while($result = $testQues->fetch_assoc()){
+                        $count++;
                 ?>
                         <tr>
-                          <td><?php echo $data[0]; ?></td>
-                          <td><?php echo $data[1]; ?></td>
-                          <td><?php echo $result['Duration']; ?> hrs</td>
+                          <td><?php echo $count; ?></td>
+                          <td><?php echo $result['que']; ?></td>
+                          <td><?php echo $result['correct']; ?></td>
                           <td><?php echo $result['Type']; ?></td>
                           <td>
                             <div class="btn-group">
-                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editTest<?php echo $result['TestNo']; ?>"><i class="fa fa-lg fa-edit"></i></button>
-                                <?php if($result['status'] == '1') { ?>
-                                  <form class="test-form" action="" method="POST">
-                                    <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
-                                    <button class="btn btn-primary" type="submit" name="disTest"><i class="fa fa-lg fa-check"></i></button>
-                                  </form>
-                                <?php } else { ?>
-                                  <form class="test-form" action="" method="POST">
-                                    <form class="test-form" action="" method="POST">
-                                    <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
-                                    <button class="btn btn-primary" type="submit" name="enaTest"><i class="fa fa-lg fa-remove"></i></button>
-                                  </form>
-                                <?php }?>
+                              <button class="btn btn-primary" href="#" data-toggle="modal" data-target="#editQue@<?php echo $TestNo."-".$result['queNo']; ?>"><i class="fa fa-lg fa-edit"></i></button>
+                                <form class="test-form" action="" method="POST">
+                                  <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden >
+                                  <input class="form-control" type="text" name="queNo" value="<?php echo $result['queNo']; ?>" hidden >
+                                  <button class="btn btn-primary" type="submit" name="delQue"><i class="fa fa-lg fa-trash"></i></button>
+                                </form>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="editTest<?php echo $result['TestNo']; ?>" role="dialog">
+                            <div class="modal fade" id="editQue@<?php echo $TestNo."-".$result['queNo']; ?>" role="dialog">
                               <div class="modal-dialog" role="document">
                                 <form class="test-form" action="" method="POST">
                                   <div class="modal-content">
                                     <div class="modal-header">
-                                      <h5 class="modal-title">Edit Test Details</h5>
+                                      <h5 class="modal-title">Edit Question Details</h5>
                                       <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                                     </div>
                                     <div class="modal-body">
                                       <div class="form-group">
-                                        <label class="control-label">Test Name</label>
-                                        <input class="form-control" type="text" name="TestName" value="<?php echo $data[0]; ?>" required>
-                                        <input class="form-control" type="text" name="TestNo" value="<?php echo $result['TestNo']; ?>" hidden >
+                                        <label class="control-label">Question Name</label>
+                                        <input class="form-control" type="text" name="QuestionName" value="<?php echo $result['que']; ?>" required>
+                                        <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden >
+                                        <input class="form-control" type="text" name="QueNo" value="<?php echo $QueNo; ?>" hidden >
                                       </div>
                                       <div class="form-group">
-                                        <label class="control-label">Test Category</label>
-                                        <select class="form-control input-lg mb-md" name="TestCategory">
-                                          <?php
-                                            $testCatData = $admin->getAllTestCat();
-                                            if ($testCatData) {
-                                              while($result1 = $testCatData->fetch_assoc()){
-                                          ?>
-                                          <option value="<?php echo $result1["Name"];?>" <?php if($result1["Name"] == $data[1]){ ?>selected <?php } ?>><?php echo $result1["Name"];?></option>
-                                          <?php
-                                              }
-                                            }
-                                          ?>
-                                        </select>
-                                      </div>
-                                      <div class="form-group">
-                                        <label class="control-label">Test Duration</label>
-                                        <input class="form-control" type="text" name="TestDuration" value="<?php echo $result['Duration']; ?>" required>
+                                        <label class="control-label">Question Duration</label>
+                                        <input class="form-control" type="text" name="QuestionDuration" value="<?php echo $result['Duration']; ?>" required>
                                       </div>
                                     </div>
                                     <div class="modal-footer">
-                                      <button class="btn btn-primary" type="submit" name="editTest"><i class="fa fa-sign-in fa-lg fa-fw"></i>Update</button>
+                                      <button class="btn btn-primary" type="submit" name="editQuestion"><i class="fa fa-sign-in fa-lg fa-fw"></i>Update</button>
                                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
                                     </div>
                                   </div>
