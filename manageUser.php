@@ -13,9 +13,27 @@
 
 <?php
 
-  include 'lib/User.php';
-  Session::checkSession();
-  $user = new User();
+  include 'lib/Admin.php';
+  Session::checkAdminSession();
+  $admin = new Admin();
+
+  if(isset($_GET['dis'])){
+    $disId = (int)$_GET['dis'];
+    $userName = (int)$_GET['name'];
+    $disUser = $admin->DisableUser($disId,$userName);
+  }
+
+  if(isset($_GET['ena'])){
+    $enaId = (int)$_GET['ena'];
+    $userName = (int)$_GET['name'];
+    $enaUser = $admin->EnableUser($enaId,$userName);
+  }
+
+  if(isset($_GET['del'])){
+    $delId = (int)$_GET['del'];
+    $userName = (int)$_GET['name'];
+    $delUser = $admin->DeleteUser($delId,$userName);
+  }
 
 ?>
 
@@ -24,7 +42,7 @@
 <html lang="en">
   <head>
   
-    <title>Mock Portal - Learn Quest Academy</title>
+    <title>Manage Users - Learn Quest Academy</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +58,15 @@
         echo $loginmsg;
       }
       Session::set("loginmsg", NULL);
+      if (isset($disUser)) {
+        echo $disUser;
+      }
+      if (isset($enaUser)) {
+        echo $enaUser;
+      }
+      if (isset($delUser)) {
+        echo $delUser;
+      }
     ?>
   </head>
   <body class="app sidebar-mini rtl">
@@ -60,7 +87,7 @@
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
 <!--             <li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
  -->            <li><a class="dropdown-item" href="profile.php"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="index.php?action=logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+            <li><a class="dropdown-item" href="admin.php?action=logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -81,7 +108,10 @@
         </div>
       </div>
       <ul class="app-menu">
-        <li><a class="app-menu__item active" href="index.php"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li><a class="app-menu__item" href="admin.php"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li><a class="app-menu__item active" href="#"><i class="app-menu__icon fa fa-user"></i><span class="app-menu__label">Manage Users</span></a></li>
+        <li><a class="app-menu__item" href="manageTestCategory.php"><i class="app-menu__icon fa fa-pencil"></i><span class="app-menu__label">Manage Test Category</span></a></li>
+        <li><a class="app-menu__item" href="manageTest.php"><i class="app-menu__icon fa fa-pencil"></i><span class="app-menu__label">Manage Tests</span></a></li>
         <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-shopping-cart"></i><span class="app-menu__label">Purchase</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="bootstrap-components.html">CAT 2018-19</a></li>
@@ -113,7 +143,7 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+          <h1><i class="fa fa-dashboard"></i> Admin - Dashboard</h1>
           <p>Welcome to Learn Quest Academy</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -122,53 +152,43 @@
         </ul>
       </div>
       <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-users fa-3x"></i>
-            <div class="info">
-              <h4>Users</h4>
-              <p><b>5</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-thumbs-o-up fa-3x"></i>
-            <div class="info">
-              <h4>Likes</h4>
-              <p><b>25</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small warning coloured-icon"><i class="icon fa fa-files-o fa-3x"></i>
-            <div class="info">
-              <h4>Uploades</h4>
-              <p><b>10</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="widget-small danger coloured-icon"><i class="icon fa fa-star fa-3x"></i>
-            <div class="info">
-              <h4>Stars</h4>
-              <p><b>500</b></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="tile">
-            <h3 class="tile-title">Monthly Sales</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="tile">
-            <h3 class="tile-title">Support Requests</h3>
-            <div class="embed-responsive embed-responsive-16by9">
-              <canvas class="embed-responsive-item" id="pieChartDemo"></canvas>
+            <div class="tile-body">
+              <table class="table table-hover table-bordered" id="sampleTable">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
+                  $usersData = $admin->getAllUsers();
+                  if ($usersData) {
+                      while($result = $usersData->fetch_assoc()){
+                ?>
+                        <tr>
+                          <td><?php echo $result['Name']; ?></td>
+                          <td><?php echo $result['Email']; ?></td>
+                          <td><?php echo $result['Mobile']; ?></td>
+                          <td>
+                            <?php if($result['status'] == '1') { ?>
+                              <a href="?dis=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Disable</a> ||
+                              <?php } else { ?>
+                              <a href="?ena=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Enable</a> ||
+                              <?php } ?>
+                              <a onclick="return confirm('Are you Sure to Delete.')" href="?del=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Remove</a> 
+                          </td>
+                        </tr>
+                <?php
+                      }
+                  }
+                ?>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -181,8 +201,13 @@
     <script src="js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="js/plugins/pace.min.js"></script>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
     <!-- Page specific javascripts-->
     <script type="text/javascript" src="js/plugins/chart.js"></script>
+    <script type="text/javascript" src="js/plugins/sweetalert.min.js"></script>
     <script type="text/javascript">
       var data = {
       	labels: ["January", "February", "March", "April", "May"],

@@ -1,7 +1,7 @@
 <?php
 	
 	include_once 'Session.php';
-	include 'Database.php';
+	include_once 'Database.php';
 
 	class User
 	{
@@ -52,12 +52,19 @@
 			$result = $this->getLoginUser($email,$password);
 			if ($result) {
 				Session::init();
-				Session::set("login", true);
 				Session::set("id", $result->SNo);
 				Session::set("name", $result->Name);
 				Session::set("email", $result->Email); 
+				Session::set("type", $result->Type); 
 				Session::set("loginmsg", "<script type='text/javascript'>setTimeout(function () { swal('Welcome ".$result->Name."!', 'You have successfully logged in.', 'success');}, 500);</script>");
-				header("Location: index.php");
+				if($result->Type == 'a'){
+					Session::set("adminlogin", true);
+					header("Location: admin.php");
+				}
+				else{
+					Session::set("userlogin", true);
+					header("Location: index.php");
+				}
 			}else{
 				$msg = "<script type='text/javascript'>setTimeout(function () { swal('Warning!', 'Wrong Credentials.', 'warning');}, 500);</script>";
 				return $msg;

@@ -29,14 +29,24 @@
 		}
 
 		public static function checkSession(){
-			if(self::get("login") == false){
-				self::destroy();
+			if(Session::get("userlogin") == false){
+				Session::destroy();
+				header("Location: page-login.php");
+			}
+		}
+
+		public static function checkAdminSession(){
+			if(Session::get("adminlogin") == false){
+				Session::destroy();
 				header("Location: page-login.php");
 			}
 		}
 
 		public static function checkLogin(){
-			if(self::get("login") == true){
+			if(self::get("adminlogin") == true){
+				header("Location: admin.php");
+			}
+			if(self::get("userlogin") == true){
 				header("Location: index.php");
 			}
 		}
@@ -44,7 +54,7 @@
 		public static function destroy(){
 			session_destroy();
 			session_unset();
-			header("Location: page-login.php");
+			//header("Location: page-login.php");
 		}
 	}
 
