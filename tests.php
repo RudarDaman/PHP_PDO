@@ -148,11 +148,16 @@
                       $data = explode("@", $result['Name']);
                 ?>
                         <tr>
-                          <td><a href="tests.php?name=<?php echo $result['Name']; ?>" target="_blank"><?php echo $data[0]; ?></a></td>
+                          <td><?php echo $data[0]; ?></td>
                           <td><?php echo $result['Duration']; ?> hrs</td>
                           <td>0/300</td>
                           <td>
                             Not attempted
+                            <form>
+                              <a href="testPlayer.php?name=<?php echo $result['Name']; ?>" target="_blank">
+                                Take test
+                              </a>
+                            </form>
                           </td>
                         </tr>
                 <?php

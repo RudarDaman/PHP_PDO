@@ -125,14 +125,14 @@
           if ($testSeries) {
               while($result = $testSeries->fetch_assoc()){
         ?>
-        <div class="col-md-4 col-lg-4">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-lightbulb-o fa-3x"></i>
-            <div class="info">
-              <h4><a href="tests.php?name=<?php echo $result['Name']; ?>"><?php echo $result['Name']; ?></a></h4>
-              <p>No. of Tests: <b><?php echo $user->getTestCount($result['Name'])->fetch_assoc()['count']; ?></b></p>
+            <div class="col-md-4 col-lg-4">
+              <div class="widget-small primary coloured-icon"><i class="icon fa fa-lightbulb-o fa-3x"></i>
+                <div class="info">
+                  <h4><a href="tests.php?name=<?php echo $result['Name']; ?>"><?php echo $result['Name']; ?></a></h4>
+                  <p>No. of Tests: <b><?php echo $user->getTestCount($result['Name'])->fetch_assoc()['count']; ?></b></p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
         <?php
             }
           }
