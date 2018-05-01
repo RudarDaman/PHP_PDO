@@ -148,7 +148,7 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Admin - All Tests</h1>
+          <h1><i class="fa fa-dashboard"></i> Admin - All Test Categories</h1>
           <p>Welcome to Learn Quest Academy</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
