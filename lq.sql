@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 11:36 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Apr 23, 2018 at 03:56 PM
+-- Server version: 10.1.29-MariaDB
+-- PHP Version: 7.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,8 +43,8 @@ CREATE TABLE `ans` (
 --
 
 INSERT INTO `ans` (`queNo`, `TestNo`, `correct`, `aAnswer`, `bAnswer`, `cAnswer`, `dAnswer`) VALUES
-(1, 1, 'B', 'A', 'B', 'C', 'D'),
-(2, 1, 'B', 'A', 'B', 'C', 'D');
+(1, 1, 'CCCC', 'A', 'BB', 'CCCC', 'DDDDD'),
+(5, 1, 'Learn Quest', 'Learn', 'Quest', 'Learn Quest', 'None');
 
 -- --------------------------------------------------------
 
@@ -1872,7 +1872,7 @@ CREATE TABLE `que` (
 
 INSERT INTO `que` (`queNo`, `TestNo`, `que`, `Type`) VALUES
 (1, 1, 'What is PHP?', 'DI-LR'),
-(2, 1, 'What is PHP?', 'DI-LR');
+(5, 1, 'What is LQ?', 'VA-RC');
 
 -- --------------------------------------------------------
 
@@ -1894,7 +1894,7 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`TestNo`, `Name`, `Duration`, `Type`, `Created`, `status`) VALUES
-(1, 'LQ MOCK-1@CAT 2017-18', 3, '0', '2018-04-23 06:02:32', 0);
+(1, 'LQ MOCK-1@CAT 2017-18', 3, '0', '2018-04-23 13:56:19', 0);
 
 -- --------------------------------------------------------
 

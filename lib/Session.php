@@ -54,7 +54,7 @@
 		public static function destroy(){
 			session_destroy();
 			session_unset();
-			//header("Location: page-login.php");
+			header("Location: page-login.php");
 		}
 	}
 

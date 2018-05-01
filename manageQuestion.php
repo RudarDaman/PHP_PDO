@@ -141,7 +141,7 @@
     <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Admin - All Test Questions</h1>
+          <h1><i class="fa fa-dashboard"></i> Admin - All Questions</h1>
           <p>Welcome to Learn Quest Academy</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -153,7 +153,12 @@
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-title-w-btn">
-              <h3 class="title"> - All Questions</h3>
+              <h3 class="title">
+                <?php $name = $admin->getTestName($TestNo);
+                      echo $name[1]; 
+                ?>
+                / <?php echo $name[0]; ?>
+              </h3>
               <div class="btn-group"><a class="btn btn-primary" href="#" data-toggle="modal" data-target="#addQue"><i class="fa fa-lg fa-plus"></i>Add New Question</a></div>
               <!-- Modal -->
               <div class="modal fade" id="addQue" role="dialog">
@@ -164,27 +169,27 @@
                         <h5 class="modal-title">Add New Question</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                       </div>
-                        <input class="form-control" type="text" name="TestId" value="<?php echo $TestNo; ?>" hidden>
+                        <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden>
                       <div class="modal-body">
                         <div class="form-group">
                           <label class="control-label">Question</label>
-                          <input class="form-control" type="text" name="Question" placeholder="e.g. What is LQ?">
+                          <input class="form-control" type="text" name="Question" placeholder="e.g. What is LQ?" required>
                         </div>
                         <div class="form-group">
                           <label class="control-label">Option A</label>
-                          <input class="form-control" type="text" name="aAnswer">
+                          <input class="form-control" type="text" name="aAnswer" required>
                           <label class="control-label">Option B</label>
-                          <input class="form-control" type="text" name="bAnswer">
+                          <input class="form-control" type="text" name="bAnswer" required>
                           <label class="control-label">Option C</label>
-                          <input class="form-control" type="text" name="cAnswer">
+                          <input class="form-control" type="text" name="cAnswer" required>
                           <label class="control-label">Option D</label>
-                          <input class="form-control" type="text" name="dAnswer">
+                          <input class="form-control" type="text" name="dAnswer" required>
                         </div>
                         <div class="form-group">
                           <label class="control-label">Correct Answer</label>
                           <div class="form-check">
                             <label class="form-check-label">
-                              <input class="form-check-input" type="radio" value="1" name="correctAnswer">A
+                              <input class="form-check-input" type="radio" value="1" name="correctAnswer" required>A
                             </label>
                           </div>
                           <div class="form-check">
@@ -205,7 +210,7 @@
                         </div>
                         <div class="form-group">
                           <label class="control-label">Que Category</label>
-                          <select class="form-control input-lg mb-md" name="QueCategory">
+                          <select class="form-control input-lg mb-md" name="QueCategory" required>
                             <option selected disabled hidden value>Select Que Category</option>
                             <option value="Quants">Quants</option>
                             <option value="DI-LR">DI-LR</option>
@@ -236,16 +241,16 @@
                 </thead>
                 <tbody>
                 <?php
-                  /*$testQue = $admin->getAllTestQues($TestNo);
-                  if ($testQue) {
-                      while($result = $testQue->fetch_assoc()){
-                        $data = explode("@", $result['Name']);*/
-
                   $testQues = $admin->getAllTestQues($TestNo);
                   if ($testQues) {
                       $count = 0;
                       while($result = $testQues->fetch_assoc()){
                         $count++;
+                        $aAnswer = $result['aAnswer'];
+                        $bAnswer = $result['bAnswer'];
+                        $cAnswer = $result['cAnswer'];
+                        $dAnswer = $result['dAnswer'];
+                        $answers = array($aAnswer,$bAnswer,$cAnswer,$dAnswer);
                 ?>
                         <tr>
                           <td><?php echo $count; ?></td>
@@ -275,7 +280,7 @@
                                         <label class="control-label">Question Name</label>
                                         <input class="form-control" type="text" name="Question" value="<?php echo $result['que']; ?>" required>
                                         <input class="form-control" type="text" name="TestNo" value="<?php echo $TestNo; ?>" hidden >
-                                        <input class="form-control" type="text" name="QueNo" value="<?php echo $QueNo; ?>" hidden >
+                                        <input class="form-control" type="text" name="queNo" value="<?php echo $result['queNo']; ?>" hidden >
                                       </div>
                                       <div class="form-group">
                                         <label class="control-label">Option A</label>
@@ -292,6 +297,37 @@
                                       <div class="form-group">
                                         <label class="control-label">Option D</label>
                                         <input class="form-control" type="text" name="dAnswer" value="<?php echo $result['dAnswer']; ?>" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label">Correct Answer</label>
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" value="1" name="correctAnswer" <?php if($result['correct'] == $answers[0]){ ?>checked<?php } ?>>A
+                                          </label>
+                                        </div>
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" value="2" name="correctAnswer" <?php if($result['correct'] == $answers[1]){ ?>checked<?php } ?>>B
+                                          </label>
+                                        </div>
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" value="3" name="correctAnswer" <?php if($result['correct'] == $answers[2]){ ?>checked<?php } ?>>C
+                                          </label>
+                                        </div>
+                                        <div class="form-check">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" value="4" name="correctAnswer" <?php if($result['correct'] == $answers[3]){ ?>checked<?php } ?>>D
+                                          </label>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label">Que Category</label>
+                                        <select class="form-control input-lg mb-md" name="QueCategory">
+                                          <option value="Quants" <?php if($result['Type'] == "Quants"){ ?>selected<?php } ?>>Quants</option>
+                                          <option value="DI-LR" <?php if($result['Type'] == "DI-LR"){ ?>selected<?php } ?>>DI-LR</option>
+                                          <option value="VA-RC" <?php if($result['Type'] == "VA-RC"){ ?>selected<?php } ?>>VA-RC</option>
+                                        </select>
                                       </div>
                                     </div>
                                     <div class="modal-footer">

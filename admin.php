@@ -151,48 +151,6 @@
           <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         </ul>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <div class="tile-body">
-              <table class="table table-hover table-bordered" id="sampleTable">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php
-                  $usersData = $admin->getAllUsers();
-                  if ($usersData) {
-                      while($result = $usersData->fetch_assoc()){
-                ?>
-                        <tr>
-                          <td><?php echo $result['Name']; ?></td>
-                          <td><?php echo $result['Email']; ?></td>
-                          <td><?php echo $result['Mobile']; ?></td>
-                          <td>
-                            <?php if($result['status'] == '1') { ?>
-                              <a href="?dis=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Disable</a> ||
-                              <?php } else { ?>
-                              <a href="?ena=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Enable</a> ||
-                              <?php } ?>
-                              <a onclick="return confirm('Are you Sure to Delete.')" href="?del=<?php echo $result['SNo']; ?>&name=<?php echo $result['Name']; ?>"> Remove</a> 
-                          </td>
-                        </tr>
-                <?php
-                      }
-                  }
-                ?>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
       
     </main>
     <!-- Essential javascripts for application to work-->

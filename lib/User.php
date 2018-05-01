@@ -23,6 +23,23 @@
 			}
 		}
 
+		public function emailVerify($data){
+			if($data == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		public function statusCheck($data)
+		{
+			if($data == 1){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
 		public function getLoginUser($email, $password){
 			$sql = "SELECT * FROM login where Email = :email AND Password = :password LIMIT 1";
 			$query = $this->db->pdo->prepare($sql);
@@ -51,24 +68,61 @@
 
 			$result = $this->getLoginUser($email,$password);
 			if ($result) {
-				Session::init();
-				Session::set("id", $result->SNo);
-				Session::set("name", $result->Name);
-				Session::set("email", $result->Email); 
-				Session::set("type", $result->Type); 
-				Session::set("loginmsg", "<script type='text/javascript'>setTimeout(function () { swal('Welcome ".$result->Name."!', 'You have successfully logged in.', 'success');}, 500);</script>");
-				if($result->Type == 'a'){
-					Session::set("adminlogin", true);
-					header("Location: admin.php");
+				$chk_status = $this->statusCheck($result->status);
+				$verify_email = $this->emailVerify($result->Mail_Verify);
+				if($verify_email){
+					Session::init();
+					Session::set("id", $result->SNo);
+					Session::set("name", $result->Name);
+					Session::set("email", $result->Email); 
+					Session::set("type", $result->Type); 
+					Session::set("loginmsg", "<script type='text/javascript'>setTimeout(function () { swal('Welcome ".$result->Name."!', 'You have successfully logged in.', 'success');}, 500);</script>");
+					if($result->Type == 'a'){
+						Session::set("adminlogin", true);
+						header("Location: admin.php");
+					}
+					else{
+						if ($chk_status) {
+							Session::set("userlogin", true);
+							header("Location: index.php");
+						}
+						else{
+							$msg = "<script type='text/javascript'>setTimeout(function () { swal('User disabled', 'Please contact administrator.', 'warning');}, 500);</script>";
+							return $msg;
+						}
+					}
 				}
 				else{
-					Session::set("userlogin", true);
-					header("Location: index.php");
+					$msg = "<script type='text/javascript'>setTimeout(function () { swal('Warning!', 'Please verify your email id first.', 'warning');}, 500);</script>";
+					return $msg;
 				}
 			}else{
 				$msg = "<script type='text/javascript'>setTimeout(function () { swal('Warning!', 'Wrong Credentials.', 'warning');}, 500);</script>";
 				return $msg;
 			}
+		}
+
+		public function getAllTestSeries()
+		{
+			$query = "SELECT * FROM `test_category` WHERE status=1";
+			$result = $this->db->select($query);
+			return $result;
+		}
+
+		public function getTestCount($name)
+		{
+			$len = strlen($name);
+			$query = "SELECT COUNT(*) as count FROM `test` WHERE RIGHT(Name, '$len')='$name'";
+			$result = $this->db->select($query);
+			return $result;
+		}
+
+		public function getAllTests($name)
+		{
+			$len = strlen($name);
+			$query = "SELECT * FROM `test` WHERE RIGHT(Name, '$len')='$name'";
+			$result = $this->db->select($query);
+			return $result;
 		}
 
 	}
