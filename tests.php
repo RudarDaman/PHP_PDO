@@ -153,11 +153,7 @@
                           <td>0/300</td>
                           <td>
                             Not attempted
-                            <form>
-                              <a href="testPlayer.php?name=<?php echo $result['Name']; ?>" target="_blank">
-                                Take test
-                              </a>
-                            </form>
+                            <a href="#" class="btn btn-primary" onclick="window.open('testPlayer.php?no=<?php echo $result['TestNo']; ?>', 'Popup', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no,fullscreen=yes');">Give Test</a>
                           </td>
                         </tr>
                 <?php

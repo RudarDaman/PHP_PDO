@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2018 at 03:56 PM
+-- Generation Time: May 20, 2018 at 09:26 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.1.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `ans` (
 
 INSERT INTO `ans` (`queNo`, `TestNo`, `correct`, `aAnswer`, `bAnswer`, `cAnswer`, `dAnswer`) VALUES
 (1, 1, 'CCCC', 'A', 'BB', 'CCCC', 'DDDDD'),
-(5, 1, 'Learn Quest', 'Learn', 'Quest', 'Learn Quest', 'None');
+(2, 1, 'Learn Quest', 'Learn', 'Quest', 'Learn Quest', 'None');
 
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE `login` (
   `Password` varchar(100) NOT NULL,
   `Mobile` varchar(100) NOT NULL,
   `Type` varchar(10) NOT NULL DEFAULT 'u',
-  `Mail Verify` int(1) NOT NULL,
+  `Mail_Verify` int(1) NOT NULL,
   `status` int(1) NOT NULL,
   `OTP` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -118,7 +118,7 @@ CREATE TABLE `login` (
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`SNo`, `Name`, `Email`, `Password`, `Mobile`, `Type`, `Mail Verify`, `status`, `OTP`) VALUES
+INSERT INTO `login` (`SNo`, `Name`, `Email`, `Password`, `Mobile`, `Type`, `Mail_Verify`, `status`, `OTP`) VALUES
 (1, 'Rudar Daman Singla', 'damanrudar@gmail.com', 'be6cafd71e3a254c879c81383ecbbadc', '9805049277', 'a', 1, 0, 1),
 (2, 'Anuj Sinha', 'Anuj', 'c482e3014f9b268c6d953a0fb0df6cc6', '', 'a', 1, 0, 1),
 (3, 'Nikhil', 'Nikhil', '350d89c1cd6592bbbd1ed2e8a4f3ddba', '', 'a', 1, 0, 1),
@@ -139,7 +139,8 @@ INSERT INTO `login` (`SNo`, `Name`, `Email`, `Password`, `Mobile`, `Type`, `Mail
 (19, 'NOBIN THOMAS', 'nobin994@gmail.com', 'eb4b473aa038648235a43a7c2be01eb3', '8300610699', 'u', 1, 0, 1),
 (20, 'AYUSH SAHA', 'ayush_sha@rediffmail.com', '82865a650c43e8fdb6e81be84a01a0ae', '8981307930', 'u', 1, 0, 1),
 (21, 'VISHAL SHARMA', 'vishalsharma4773@gmail.com', '3b17f704d790fbdcfe95b395a69c7575', '9555477395', 'u', 1, 0, 1),
-(22, 'Venkata Teja Vaibhav Marichetty', 'marichettty.vaibhav@gmail.com', '9ad00337d02c9ca1121ccf3943026f46', '9043220083', 'u', 1, 0, 1);
+(22, 'Venkata Teja Vaibhav Marichetty', 'marichettty.vaibhav@gmail.com', '9ad00337d02c9ca1121ccf3943026f46', '9043220083', 'u', 1, 0, 1),
+(23, 'ITSRDS', 'itsrds@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '9805049277', 'u', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1872,7 +1873,19 @@ CREATE TABLE `que` (
 
 INSERT INTO `que` (`queNo`, `TestNo`, `que`, `Type`) VALUES
 (1, 1, 'What is PHP?', 'DI-LR'),
-(5, 1, 'What is LQ?', 'VA-RC');
+(2, 1, 'What is LQ?', 'VA-RC');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `submission`
+--
+
+CREATE TABLE `submission` (
+  `id` int(100) NOT NULL,
+  `TestNo` int(100) NOT NULL,
+  `Score` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -1914,8 +1927,8 @@ CREATE TABLE `test_category` (
 --
 
 INSERT INTO `test_category` (`Id`, `Name`, `Timestamp`, `status`) VALUES
-(1, 'CAT 2017-18', '2018-04-22 10:19:30', 0),
-(2, 'IIFT 2017-18', '2018-04-23 04:25:34', 0);
+(1, 'CAT 2017-18', '2018-04-30 09:46:58', 1),
+(2, 'IIFT 2017-18', '2018-04-30 10:23:37', 1);
 
 --
 -- Indexes for dumped tables
@@ -1980,7 +1993,7 @@ ALTER TABLE `test_category`
 -- AUTO_INCREMENT for table `ans`
 --
 ALTER TABLE `ans`
-  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `blog`
@@ -1992,13 +2005,13 @@ ALTER TABLE `blog`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `SNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `SNo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `que`
 --
 ALTER TABLE `que`
-  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `queNo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `test`

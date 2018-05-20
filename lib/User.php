@@ -125,6 +125,21 @@
 			return $result;
 		}
 
+		public function prepareQue($TestNo)
+		{
+			$query = "SELECT que.queNo,que.TestNo,que.que, que.Type, ans.aAnswer, ans.bAnswer, ans.cAnswer, ans.dAnswer FROM `que` INNER JOIN `ans` ON que.queNo = ans.queNo WHERE que.TestNo = '$TestNo'";
+			$result = $this->db->select($query);
+			$data = array();
+			while($row = $result->fetch_assoc()){
+				$data[] = $row;
+			}
+			$data = json_encode($data);
+			$answer = '{}';
+			$answer = json_encode($answer);
+			echo "<script text='javascript'>localStorage.setItem('question', JSON.stringify(".$data."));</script>";
+			echo "<script text='javascript'>localStorage.setItem('answer', JSON.stringify(".$answer."));</script>";
+		}
+
 	}
 
 ?>
